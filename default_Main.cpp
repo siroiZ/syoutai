@@ -44,6 +44,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//‚±‚±‚©‚çƒQ[ƒ€‚Ì–{‘Ì‚ğ‘‚­‚±‚Æ‚É‚È‚é
 		//-----------------------------------------
 		
+		//“®ìTest
+		DrawBox(100, 100, 200, 200, GetColor(0, 225, 225), false);
 
 
 		//-----------------------------------------
