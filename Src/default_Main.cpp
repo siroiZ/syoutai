@@ -44,8 +44,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//Ç±Ç±Ç©ÇÁÉQÅ[ÉÄÇÃñ{ëÃÇèëÇ≠Ç±Ç∆Ç…Ç»ÇÈ
 		//-----------------------------------------
 		
-		//ìÆçÏTest
-		DrawBox(100, 100, 200, 200, GetColor(0, 225, 225), false);
+		//ìÆçÏTest (âºï«)
+		DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200, 
+			SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 200, GetColor(0, 225, 225), false);
 
 
 		//-----------------------------------------
