@@ -1,6 +1,8 @@
 #include "DxLib.h"	//DXライブラリのインクルード
 #include"Scene.h"
 #include"ScenePlay.h"
+#include"../Timer/Timer.h"
+
 #include "../Collision/Collision.h"
 
 //自機情報
@@ -11,6 +13,8 @@
 
 //構造体
 PlayerInfo playerInfo = { 0 };
+// タイムクラス
+CntTimer cnttime;
 
 void InitPlay()
 {
@@ -20,6 +24,7 @@ void InitPlay()
 	playerInfo.x = 0;
 	playerInfo.y = 0;
 
+	cnttime.Init();
 }
 
 void StepPlay()
@@ -47,7 +52,7 @@ void StepPlay()
 	}
 
 
-
+	cnttime.Step();
 }
 
 void DrawPlay()
@@ -66,6 +71,8 @@ void DrawPlay()
 		SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 - 300, GetColor(0, 100, 225), true);		//上壁
 	DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 + 200,
 		SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 300, GetColor(0, 100, 225), true);		//下壁
+
+	cnttime.Draw();
 }
 
 void FinPlay()
