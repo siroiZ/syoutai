@@ -7,6 +7,7 @@
 #define PLAYER_PATH		"Data/PlayImage/teki1.png"	    //自機のパス
 
 #define PLAYER_MOVE_NORMAL_SPEED (1)    //プレイヤーの通常移動速度
+#define PLAYER_MOVE_DASH_SPEED (3)    //プレイヤーの通常移動速度
 
 //構造体
 PlayerInfo playerInfo = { 0 };
@@ -24,6 +25,9 @@ void InitPlay()
 void StepPlay()
 {
 	int moveSpeed = PLAYER_MOVE_NORMAL_SPEED;  //移動スピード
+	if (CheckHitKey(KEY_INPUT_RSHIFT)) {
+		moveSpeed = PLAYER_MOVE_DASH_SPEED;
+	}
 
 	//移動処理(右)
 	if (CheckHitKey(KEY_INPUT_D)) {
@@ -41,6 +45,9 @@ void StepPlay()
 	if (CheckHitKey(KEY_INPUT_S)) {
 		playerInfo.y += moveSpeed;
 	}
+
+
+
 }
 
 void DrawPlay()

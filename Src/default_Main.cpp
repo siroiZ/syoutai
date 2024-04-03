@@ -76,44 +76,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		}
 		break;
 		}
-		/*//プレイヤー初期化
-		int playerhandle = LoadGraph(PLAYER_PATH);
-		int playerx = 0;
-		int playery = 0;
-
-		int moveSpeed = PLAYER_MOVE_NORMAL_SPEED;  //移動スピード
-
-		//移動処理(右)
-		if (CheckHitKey(KEY_INPUT_RIGHT)) {
-			playerx += 1;
-		}
-		//移動処理(左)
-		if (CheckHitKey(KEY_INPUT_LEFT)) {
-			playerx -= 1;
-		}
-		//移動処理(上)
-		if (CheckHitKey(KEY_INPUT_UP)) {
-			playery -= 1;
-		}
-		//移動処理(下)
-		if (CheckHitKey(KEY_INPUT_DOWN)) {
-			playery += 1;
-		}
-
-		//動作Test (仮壁)
-		DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200, 
-			SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 200, GetColor(0, 225, 225), false);	//壁
-		DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200, 
-			SCREEN_SIZE_X / 2 - 300, SCREEN_SIZE_Y / 2 + 200, GetColor(0, 100, 225), true);		//左壁
-		DrawBox(SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 - 200, 
-			SCREEN_SIZE_X / 2 + 300, SCREEN_SIZE_Y / 2 + 200, GetColor(0, 100, 225), true);		//右壁
-		DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200, 
-			SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 - 300, GetColor(0, 100, 225), true);		//上壁
-		DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 + 200,
-			SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 300, GetColor(0, 100, 225), true);		//下壁
-
-		//プレイヤーの描画
-		DrawGraph(playerx, playery, playerhandle, true);*/
+		
 
 		//-----------------------------------------
 		//ループの終わりに

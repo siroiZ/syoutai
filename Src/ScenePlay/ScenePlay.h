@@ -14,6 +14,7 @@ struct PlayerInfo
 {
 	int playerhandle;		          //プレイヤー画像ハンドル
 	int x, y;                         //座標
+	int playerhp;            //プレイヤーのHP
 };
 
 #endif
