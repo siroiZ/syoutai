@@ -21,9 +21,12 @@
   <ItemGroup>
     <ClCompile Include="Src\Collision\Collision.cpp" />
     <ClCompile Include="Src\default_Main.cpp" />
+    <ClCompile Include="Src\ScenePlay\ScenePlay.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Collision\Collision.h" />
+    <ClInclude Include="Src\ScenePlay\Scene.h" />
+    <ClInclude Include="Src\ScenePlay\ScenePlay.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>

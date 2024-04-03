@@ -1,10 +1,18 @@
-//ウィンドウを表示するプログラム（ひな形）		//制作者：　,2309402出光真那斗,
+//ウィンドウを表示するプログラム（ひな形）		//制作者：　,2309402出光真那斗,2309405宇賀塚暖紀
 
 #include "DxLib.h"	//DXライブラリのインクルード
+#include"ScenePlay/Scene.h"
+#include"ScenePlay/ScenePlay.h"
+
+//現在のシーンID
+int g_CurrentSceneID = SCENE_ID_INIT_PLAY;
 
 // define
 #define	SCREEN_SIZE_X	640	// X方向の画面サイズを指定
 #define	SCREEN_SIZE_Y	480	// Y方向の画面サイズを指定
+//自機情報
+#define PLAYER_PATH		"Data/PlayImage/teki1.png"	    //自機のパス
+#define PLAYER_MOVE_NORMAL_SPEED (1)    //プレイヤーの通常移動速度
 
 // Win32アプリケーションは WinMain関数 から始まる
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
@@ -44,7 +52,54 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//-----------------------------------------
 		//ここからゲームの本体を書くことになる
 		//-----------------------------------------
-		
+		switch (g_CurrentSceneID)
+		{
+			//プレイシーン
+		case SCENE_ID_INIT_PLAY:
+		{
+			InitPlay();
+		}
+		break;
+
+		case SCENE_ID_LOOP_PLAY:
+		{
+
+			StepPlay();
+
+			DrawPlay();
+		}
+		break;
+
+		case SCENE_ID_FIN_PLAY:
+		{
+			FinPlay();
+		}
+		break;
+		}
+		/*//プレイヤー初期化
+		int playerhandle = LoadGraph(PLAYER_PATH);
+		int playerx = 0;
+		int playery = 0;
+
+		int moveSpeed = PLAYER_MOVE_NORMAL_SPEED;  //移動スピード
+
+		//移動処理(右)
+		if (CheckHitKey(KEY_INPUT_RIGHT)) {
+			playerx += 1;
+		}
+		//移動処理(左)
+		if (CheckHitKey(KEY_INPUT_LEFT)) {
+			playerx -= 1;
+		}
+		//移動処理(上)
+		if (CheckHitKey(KEY_INPUT_UP)) {
+			playery -= 1;
+		}
+		//移動処理(下)
+		if (CheckHitKey(KEY_INPUT_DOWN)) {
+			playery += 1;
+		}
+
 		//動作Test (仮壁)
 		DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200, 
 			SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 200, GetColor(0, 225, 225), false);	//壁
@@ -57,6 +112,8 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 + 200,
 			SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 300, GetColor(0, 100, 225), true);		//下壁
 
+		//プレイヤーの描画
+		DrawGraph(playerx, playery, playerhandle, true);*/
 
 		//-----------------------------------------
 		//ループの終わりに
