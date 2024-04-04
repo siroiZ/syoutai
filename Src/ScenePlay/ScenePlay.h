@@ -13,8 +13,15 @@ void FinPlay();
 struct PlayerInfo
 {
 	int playerhandle;		          //プレイヤー画像ハンドル
-	int x, y;                         //座標
+	int x, y;                         //プレイヤー座標
 	int playerhp;            //プレイヤーのHP
+};
+
+//敵情報構造体
+struct TekiInfo
+{
+	int handle;                       //敵画像ハンドル
+	int x, y;                         //敵座標
 };
 
 #endif
