@@ -13,6 +13,14 @@
 #define SCENE_ID_LOOP_PLAY   (201)
 #define SCENE_ID_FIN_PLAY   (202)
 
+#define SCENE_ID_INIT_CLEAR   (300)    //クリアシーンのID
+#define SCENE_ID_LOOP_CLEAR   (301)
+#define SCENE_ID_FIN_CLEAR   (302)
+
+#define SCENE_ID_INIT_GAMEOVER   (400) //ゲームオーバーシーンのID
+#define SCENE_ID_LOOP_GAMEOVER   (401)
+#define SCENE_ID_FIN_GAMEOVER   (402)
+
 extern int g_CurrentSceneID;  //現在のシーンID
 
 #endif

@@ -23,6 +23,7 @@ void InitPlay()
 	playerInfo.playerhandle = LoadGraph(PLAYER_PATH);
 	playerInfo.x = 320;
 	playerInfo.y = 240;
+	playerInfo.playerhp = 3;
 
 	cnttime.Init();
 }

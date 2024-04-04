@@ -16,6 +16,12 @@
     <Filter Include="ソース ファイル\Collision">
       <UniqueIdentifier>{f058023e-6228-431d-baef-679e8029aeda}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\SceneClear">
+      <UniqueIdentifier>{27d93f61-af20-4201-960b-7dca1d11ecfb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\SceneGameOver">
+      <UniqueIdentifier>{079cd64b-5612-4c9a-aa31-f37eb9ba3fff}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\default_Main.cpp">
@@ -33,6 +39,12 @@
     <ClCompile Include="Src\Ball\Ball.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
+    <ClCompile Include="Src\SceneClear\SceneClear.cpp">
+      <Filter>ソース ファイル\SceneClear</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\SceneGameOver\SceneGameOver.cpp">
+      <Filter>ソース ファイル\SceneGameOver</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Collision\Collision.h">
@@ -49,6 +61,12 @@
     </ClInclude>
     <ClInclude Include="Src\Ball\Ball.h">
       <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SceneClear\SceneClear.h">
+      <Filter>ソース ファイル\SceneClear</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SceneGameOver\SceneGameOver.h">
+      <Filter>ソース ファイル\SceneGameOver</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,8 @@
 #include "DxLib.h"	//DXライブラリのインクルード
 #include"ScenePlay/Scene.h"
 #include"ScenePlay/ScenePlay.h"
+#include"SceneClear/SceneClear.h"
+#include"SceneGameOver/SceneGameOver.h"
 
 //現在のシーンID
 int g_CurrentSceneID = SCENE_ID_INIT_PLAY;
@@ -75,6 +77,49 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			FinPlay();
 		}
 		break;
+		//クリアシーン
+		case SCENE_ID_INIT_CLEAR:
+		{
+			InitClear();
+		}
+		break;
+
+		case SCENE_ID_LOOP_CLEAR:
+		{
+			StepClear();
+
+			DrawClear();
+		}
+		break;
+
+		case SCENE_ID_FIN_CLEAR:
+		{
+			FinClear();
+		}
+		break;
+		//ゲームオーバーシーン
+		case SCENE_ID_INIT_GAMEOVER:
+		{
+			InitGameOver();
+
+		}
+		break;
+
+		case SCENE_ID_LOOP_GAMEOVER:
+		{
+			StepGameOver();
+
+			DrawGameOver();
+		}
+		break;
+		case SCENE_ID_FIN_GAMEOVER:
+		{
+			FinGameOver();
+		}
+		break;
+
+		default:
+			break;
 		}
 		
 
