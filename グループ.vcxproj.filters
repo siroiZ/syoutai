@@ -24,10 +24,31 @@
     <ClCompile Include="Src\Collision\Collision.cpp">
       <Filter>ソース ファイル\Collision</Filter>
     </ClCompile>
+    <ClCompile Include="Src\ScenePlay\ScenePlay.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Timer\Timer.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Ball\Ball.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Collision\Collision.h">
       <Filter>ソース ファイル\Collision</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ScenePlay\Scene.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\ScenePlay\ScenePlay.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Timer\Timer.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Ball\Ball.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -11,5 +11,6 @@ private:
 		void Init();	// ‰Šú‰»ˆ—
 		void Step();	// ’Êíˆ—
 		void Draw();	// •`‰æˆ—
+		void Fin();		// I—¹ˆ—
 
 };

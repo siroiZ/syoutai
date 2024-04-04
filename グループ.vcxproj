@@ -19,12 +19,14 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Src\Ball\Ball.cpp" />
     <ClCompile Include="Src\Collision\Collision.cpp" />
     <ClCompile Include="Src\default_Main.cpp" />
     <ClCompile Include="Src\ScenePlay\ScenePlay.cpp" />
     <ClCompile Include="Src\Timer\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Src\Ball\Ball.h" />
     <ClInclude Include="Src\Collision\Collision.h" />
     <ClInclude Include="Src\ScenePlay\Scene.h" />
     <ClInclude Include="Src\ScenePlay\ScenePlay.h" />
