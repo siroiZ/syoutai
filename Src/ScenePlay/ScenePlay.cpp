@@ -37,6 +37,9 @@ bool isNextClearScene = false;      //クリア条件を満たしているか
 //最初のカウントダウン用
 bool startcountflag = false;
 int startcount = 0;            //一時停止時間
+//背景
+int HaikeiHandle = { 0 };        //ハンドル
+int HaikeiX =0;                 //X座標
 
 void InitPlay()
 {
@@ -74,56 +77,65 @@ void InitPlay()
 
 void StepPlay()
 {
-	int moveSpeed = PLAYER_MOVE_NORMAL_SPEED;  //移動スピード
-	//Rシフトキーでダッシュ
-	if (CheckHitKey(KEY_INPUT_RSHIFT)) {
-		moveSpeed = PLAYER_MOVE_DASH_SPEED;
-	}
-
-	//移動処理(右)
-	if (CheckHitKey(KEY_INPUT_D)) {
-		playerInfo.x += moveSpeed;
-	}
-	//移動処理(左)
-	if (CheckHitKey(KEY_INPUT_A)) {
-		playerInfo.x -= moveSpeed;
-	}
-	//移動処理(上)
-	if (CheckHitKey(KEY_INPUT_W)) {
-		playerInfo.y -= moveSpeed;
-	}
-	//移動処理(下)
-	if (CheckHitKey(KEY_INPUT_S)) {
-		playerInfo.y += moveSpeed;
-	}
-	//プレイヤーと壁との当たり判定
-	if (playerInfo.x < SCREEN_SIZE_X / 2 - 300 + 100-3) {
-		playerInfo.x = playerInfo.x + 1;         //左壁
-		if (CheckHitKey(KEY_INPUT_RSHIFT)) {
-			playerInfo.x = playerInfo.x + 2;     //ダッシュ中の処理
-		}
-	}
-	if (playerInfo.x+76> SCREEN_SIZE_X / 2 + 200+3) {
-		playerInfo.x = playerInfo.x - 1;         //右壁
-		if (CheckHitKey(KEY_INPUT_RSHIFT)) {
-			playerInfo.x = playerInfo.x - 2;     //ダッシュ中の処理
-		}
-	}
-	if (playerInfo.y + 76 > SCREEN_SIZE_Y / 2 + 200+3) {
-		playerInfo.y = playerInfo.y - 1;         //下壁
-		if (CheckHitKey(KEY_INPUT_RSHIFT)) {
-			playerInfo.y = playerInfo.y - 2;     //ダッシュ中の処理
-		}
-	}
-	if (playerInfo.y < SCREEN_SIZE_Y / 2 - 300 + 100-3) {
-		playerInfo.y = playerInfo.y + 1;         //上壁
-		if (CheckHitKey(KEY_INPUT_RSHIFT)) {
-			playerInfo.y = playerInfo.y + 2;     //ダッシュ中の処理
+	if (startcountflag == false) {
+		startcount++;
+		if (startcount >= 310) {
+			startcountflag = true;
 		}
 	}
 
-	cnttime.Step();
-	ball.Step();
+	if (startcountflag == true) {
+		int moveSpeed = PLAYER_MOVE_NORMAL_SPEED;  //移動スピード
+		//Rシフトキーでダッシュ
+		if (CheckHitKey(KEY_INPUT_RSHIFT)) {
+			moveSpeed = PLAYER_MOVE_DASH_SPEED;
+		}
+
+		//移動処理(右)
+		if (CheckHitKey(KEY_INPUT_D)) {
+			playerInfo.x += moveSpeed;
+		}
+		//移動処理(左)
+		if (CheckHitKey(KEY_INPUT_A)) {
+			playerInfo.x -= moveSpeed;
+		}
+		//移動処理(上)
+		if (CheckHitKey(KEY_INPUT_W)) {
+			playerInfo.y -= moveSpeed;
+		}
+		//移動処理(下)
+		if (CheckHitKey(KEY_INPUT_S)) {
+			playerInfo.y += moveSpeed;
+		}
+		//プレイヤーと壁との当たり判定
+		if (playerInfo.x < SCREEN_SIZE_X / 2 - 300 + 100 - 3) {
+			playerInfo.x = playerInfo.x + 1;         //左壁
+			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
+				playerInfo.x = playerInfo.x + 2;     //ダッシュ中の処理
+			}
+		}
+		if (playerInfo.x + 76 > SCREEN_SIZE_X / 2 + 200 + 3) {
+			playerInfo.x = playerInfo.x - 1;         //右壁
+			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
+				playerInfo.x = playerInfo.x - 2;     //ダッシュ中の処理
+			}
+		}
+		if (playerInfo.y + 76 > SCREEN_SIZE_Y / 2 + 200 + 3) {
+			playerInfo.y = playerInfo.y - 1;         //下壁
+			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
+				playerInfo.y = playerInfo.y - 2;     //ダッシュ中の処理
+			}
+		}
+		if (playerInfo.y < SCREEN_SIZE_Y / 2 - 300 + 100 - 3) {
+			playerInfo.y = playerInfo.y + 1;         //上壁
+			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
+				playerInfo.y = playerInfo.y + 2;     //ダッシュ中の処理
+			}
+		}
+
+		cnttime.Step();
+		ball.Step();
+	}
 }
 
 void DrawPlay()
@@ -163,24 +175,26 @@ void DrawPlay()
 	}
 
 	//最初のカウント描画
-	if (startcount >= 30) {
-		if (startcount <= 130) {
-			DrawGraph(320 - 61, 240 - 61, startcountInfo.startcounthandle3, true);
+	if (startcountflag == false) {
+		if (startcount >= 30) {
+			if (startcount <= 100) {
+				DrawGraph(320 - 61, 240 - 61, startcountInfo.startcounthandle3, true);
+			}
 		}
-	}
-	if (startcount >= 130) {
-		if (startcount <= 230) {
-			DrawGraph(320 - 64, 240 - 64, startcountInfo.startcounthandle2, true);
+		if (startcount >= 100) {
+			if (startcount <= 170) {
+				DrawGraph(320 - 64, 240 - 64, startcountInfo.startcounthandle2, true);
+			}
 		}
-	}
-	if (startcount >= 230) {
-		if (startcount <= 330) {
-			DrawGraph(320 - 56, 240 - 56, startcountInfo.startcounthandle1, true);
+		if (startcount >= 170) {
+			if (startcount <= 240) {
+				DrawGraph(320 - 56, 240 - 56, startcountInfo.startcounthandle1, true);
+			}
 		}
-	}
-	if (startcount >= 330) {
-		if (startcount <= 400) {
-			DrawGraph(320 - 162, 240 - 61, startcountInfo.starthandle, true);
+		if (startcount >= 240) {
+			if (startcount <= 310) {
+				DrawGraph(320 - 162, 240 - 61, startcountInfo.starthandle, true);
+			}
 		}
 	}
 
