@@ -5,9 +5,10 @@
 #include"ScenePlay/ScenePlay.h"
 #include"SceneClear/SceneClear.h"
 #include"SceneGameOver/SceneGameOver.h"
+#include "SceneTitle/SceneTitle.h"
 
 //現在のシーンID
-int g_CurrentSceneID = SCENE_ID_INIT_PLAY;
+int g_CurrentSceneID = SCENE_ID_INIT_TITLE;
 
 // define
 #define	SCREEN_SIZE_X	640	// X方向の画面サイズを指定
@@ -56,6 +57,24 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 		//-----------------------------------------
 		switch (g_CurrentSceneID)
 		{
+			//タイトルシーン
+		case SCENE_ID_INIT_TITLE:
+
+			InitTitle();
+			break;
+		case SCENE_ID_LOOP_TITLE:
+
+			StepTitle();
+
+
+			DrawTitle();
+			break;
+
+		case SCENE_ID_FIN_TITLE:
+
+			FinTitle();
+			break;
+
 			//プレイシーン
 		case SCENE_ID_INIT_PLAY:
 		{

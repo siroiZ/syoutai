@@ -22,18 +22,22 @@
     <ClCompile Include="Src\Ball\Ball.cpp" />
     <ClCompile Include="Src\Collision\Collision.cpp" />
     <ClCompile Include="Src\default_Main.cpp" />
+    <ClCompile Include="Src\Input\Input.cpp" />
     <ClCompile Include="Src\SceneClear\SceneClear.cpp" />
     <ClCompile Include="Src\SceneGameOver\SceneGameOver.cpp" />
     <ClCompile Include="Src\ScenePlay\ScenePlay.cpp" />
+    <ClCompile Include="Src\SceneTitle\SceneTitle.cpp" />
     <ClCompile Include="Src\Timer\Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Ball\Ball.h" />
     <ClInclude Include="Src\Collision\Collision.h" />
+    <ClInclude Include="Src\Input\Input.h" />
     <ClInclude Include="Src\SceneClear\SceneClear.h" />
     <ClInclude Include="Src\SceneGameOver\SceneGameOver.h" />
     <ClInclude Include="Src\ScenePlay\Scene.h" />
     <ClInclude Include="Src\ScenePlay\ScenePlay.h" />
+    <ClInclude Include="Src\SceneTitle\SceneTitle.h" />
     <ClInclude Include="Src\Timer\Timer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

@@ -21,6 +21,7 @@
 #define SCENE_ID_LOOP_GAMEOVER   (401)
 #define SCENE_ID_FIN_GAMEOVER   (402)
 
+
 extern int g_CurrentSceneID;  //åªç›ÇÃÉVÅ[ÉìID
 
 #endif
