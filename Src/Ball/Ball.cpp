@@ -1,4 +1,4 @@
-#include "Ball.h"
+#include "Ball.h"		//2309402_oŒõ^“ß“l
 #include "Dxlib.h"
 
 void Ball::Init() {		// ‰Šú‰»
@@ -12,7 +12,7 @@ void Ball::Step() {		// ’Êí
 }
 
 void Ball::Draw() {		// •`‰æ
-
+	DrawCircle(posX_m, posY_m, 5, GetColor(255, 0, 255), true);
 }
 
 void Ball::Fin() {		// I—¹
