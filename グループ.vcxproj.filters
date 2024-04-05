@@ -22,6 +22,12 @@
     <Filter Include="ソース ファイル\SceneGameOver">
       <UniqueIdentifier>{079cd64b-5612-4c9a-aa31-f37eb9ba3fff}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\SceneTitle">
+      <UniqueIdentifier>{b1e6ddf7-d5cf-4e88-90f0-63793bf50440}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Input">
+      <UniqueIdentifier>{4623a3a5-da0f-4441-88f6-9f9dde4fe74d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\default_Main.cpp">
@@ -45,6 +51,12 @@
     <ClCompile Include="Src\SceneGameOver\SceneGameOver.cpp">
       <Filter>ソース ファイル\SceneGameOver</Filter>
     </ClCompile>
+    <ClCompile Include="Src\SceneTitle\SceneTitle.cpp">
+      <Filter>ソース ファイル\SceneTitle</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Input\Input.cpp">
+      <Filter>ソース ファイル\Input</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Collision\Collision.h">
@@ -67,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="Src\SceneGameOver\SceneGameOver.h">
       <Filter>ソース ファイル\SceneGameOver</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\SceneTitle\SceneTitle.h">
+      <Filter>ソース ファイル\SceneTitle</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Input\Input.h">
+      <Filter>ソース ファイル\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
