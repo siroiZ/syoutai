@@ -10,3 +10,10 @@ public:
 	void Draw();	// 描画
 	void Fin();		// 終了
 };
+
+//ボール情報構造体
+struct BallInfo
+{
+	int handle;                       //敵画像ハンドル
+	int x, y;                         //敵座標
+};
