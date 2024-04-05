@@ -17,11 +17,18 @@ struct PlayerInfo
 	int playerhp;            //プレイヤーのHP
 };
 
-//敵情報構造体
+//自機HP情報構造体
+struct PlayerHPInfo
+{
+	int handle;		//画像ハンドル
+	int x, y;		//座標
+};
+
 struct TekiInfo
 {
-	int handle;                       //敵画像ハンドル
-	int x, y;                         //敵座標
+	int enemyhandle;
+	int enemyx;
+	int enemyy;
 };
 
 #endif

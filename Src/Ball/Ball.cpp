@@ -1,6 +1,8 @@
 #include "Ball.h"
 #include "Dxlib.h"
 
+#define TEKI_PATH     "Data/PlayerImage/smallDiePlayer.png"
+
 void Ball::Init() {		// ‰Šú‰»
 	posX_m = 10.0f;
 	posY_m = 10.0f;
