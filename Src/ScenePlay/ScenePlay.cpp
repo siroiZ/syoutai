@@ -7,7 +7,7 @@
 
 //自機情報
 #define PLAYER_PATH		"Data/PlayImage/smallPlayer.png"	    //自機のパス
-#define TEKI_PATH     "Data/PlayerImage/smallDiePlayer.png"
+#define TEKI_PATH     "Data/PlayImage/smallDiePlayer.png"
 
 #define PLAYER_MOVE_NORMAL_SPEED (1)    //プレイヤーの通常移動速度
 #define PLAYER_MOVE_DASH_SPEED (3)    //プレイヤーの通常移動速度
@@ -21,6 +21,9 @@ PlayerHPInfo playerhpInfo[HP_MAX_NUM] = { 0 };
 TekiInfo tekiInfo = { 0 };
 // タイムクラス
 CntTimer cnttime;
+
+//クリアシーンフラグ
+bool isNextClearScene = false;      //クリア条件を満たしているか
 
 void InitPlay()
 {
@@ -133,15 +136,28 @@ void DrawPlay()
 			DrawGraph(playerhpInfo[0].x, playerhpInfo[0].y, playerhpInfo[0].handle, true);
 		}
 	}
-
+	//DrawGraph(tekiInfo.enemyx, tekiInfo.enemyy, tekiInfo.enemyhandle, true);
 	//プレイヤーの描画
 	DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerhandle, true);
-	DrawGraph(tekiInfo.enemyx, tekiInfo.enemyy,tekiInfo.enemyhandle, true);
+
+	//クリア判定
+	/*if (cnttimeM_m <= 0 && cnttimeS_m <= 0 &&     //制限時間が０になったら
+		cnttimeMS_m <= 0) {
+		g_CurrentSceneID = SCENE_ID_FIN_PLAY;    //FINに移動
+		isNextClearScene = true;                 //クリア条件を満たす
+	}*/
 
 	cnttime.Draw();
 }
 
 void FinPlay()
 {
-
+	/*if (isNextClearScene) {
+		playerInfo.playerhp = 3;
+		g_CurrentSceneID = SCENE_ID_INIT_CLEAR;  //クリアシーンへ
+	}
+	else {
+		playerInfo.playerhp = 3;
+		g_CurrentSceneID = SCENE_ID_INIT_GAMEOVER;  //ゲームオーバーへ
+	}*/
 }

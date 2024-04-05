@@ -22,5 +22,8 @@
 #define SCENE_ID_FIN_GAMEOVER   (402)
 
 extern int g_CurrentSceneID;  //Œ»İ‚ÌƒV[ƒ“ID
+extern int cnttimeM_m;
+extern int cnttimeS_m;
+extern int cnttimeMS_m;
 
 #endif
