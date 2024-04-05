@@ -6,6 +6,7 @@ void CntTimer::Init() {		// ‰Šú‰»
 	cnttimeM_m = 1;		// •ª
 	cnttimeS_m = 30;	// •b
 	cnttimeMS_m = 0;	// ƒ~ƒŠ•b
+	timeclear_m = false;
 }
 
 void CntTimer::Step() {		// ’Êí
@@ -25,6 +26,7 @@ void CntTimer::Step() {		// ’Êí
 			cnttimeM_m = 0;
 			cnttimeS_m = 0;
 			cnttimeMS_m = 0;
+			timeclear_m = true;
 		}
 }
 
@@ -42,5 +44,4 @@ void CntTimer::Fin() {		// I—¹
 	cnttimeM_m = 0;
 	cnttimeS_m = 0;
 	cnttimeMS_m = 0;
-
 }
