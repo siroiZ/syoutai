@@ -4,6 +4,7 @@
 class Ball {
 private:
 	float posX_m, posY_m;	// ボールの座標
+	int hndl_m;				// 画像ハンドル
 public:
 	void Init();	// 初期化
 	void Step();	// 通常
