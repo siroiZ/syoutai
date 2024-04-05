@@ -13,6 +13,7 @@ void FinPlay();
 struct PlayerInfo
 {
 	int playerhandle;		          //プレイヤー画像ハンドル
+	int playerdiehandle;              //プレイヤー(ピンチ)画像ハンドル
 	int x, y;                         //プレイヤー座標
 	int playerhp;            //プレイヤーのHP
 };
@@ -24,11 +25,12 @@ struct PlayerHPInfo
 	int x, y;		//座標
 };
 
-struct TekiInfo
+struct StartCountInfo
 {
-	int enemyhandle;
-	int enemyx;
-	int enemyy;
+	int startcounthandle1;
+	int startcounthandle2;
+	int startcounthandle3;
+	int starthandle;
 };
 
 #endif

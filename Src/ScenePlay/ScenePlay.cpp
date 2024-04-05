@@ -7,40 +7,48 @@
 #include "../Collision/Collision.h"
 
 //自機情報
-#define PLAYER_PATH		"Data/PlayImage/smallPlayer.png"	    //自機のパス
-#define TEKI_PATH     "Data/PlayImage/smallDiePlayer.png"
+#define PLAYER_PATH		"Data/PlayImage/smallPlayer.png"	        //自機のパス
+#define PLAYER_DIE_PATH		"Data/PlayImage/smallDiePlayer.png"	    //自機(ピンチ)のパス
 
 #define PLAYER_MOVE_NORMAL_SPEED (1)    //プレイヤーの通常移動速度
 #define PLAYER_MOVE_DASH_SPEED (3)    //プレイヤーの通常移動速度
 //体力ゲージ
 #define HP_PATH		"Data/PlayImage/体力32サイズ(満タン).png"	//体力のパス
 #define HP_MAX_NUM (3)
+//
+#define START_COUNT1_PATH		"Data/Count/1count.png"	//カウント1のパス
+#define START_COUNT2_PATH		"Data/Count/2count.png"	//カウント2のパス
+#define START_COUNT3_PATH		"Data/Count/3count.png"	//カウント3のパス
+#define START_PATH		        "Data/Count/START.png"	//STARTのパス
 
 //構造体
 PlayerInfo playerInfo = { 0 };
 PlayerHPInfo playerhpInfo[HP_MAX_NUM] = { 0 };
-TekiInfo tekiInfo = { 0 };
+
+StartCountInfo startcountInfo = { 0 };
+
 // タイムクラス
 CntTimer cnttime;
+//ボールクラス
 Ball ball;
 
 //クリアシーンフラグ
 bool isNextClearScene = false;      //クリア条件を満たしているか
+//最初のカウントダウン用
+bool startcountflag = false;
+int startcount = 0;            //一時停止時間
 
 void InitPlay()
 {
 	g_CurrentSceneID = SCENE_ID_LOOP_PLAY;
 	//プレイヤー初期化
 	playerInfo.playerhandle = LoadGraph(PLAYER_PATH);
-	playerInfo.x = 320;
-	playerInfo.y = 240;
+	playerInfo.playerdiehandle = LoadGraph(PLAYER_DIE_PATH);
+	playerInfo.x = 320-33;
+	playerInfo.y = 240-33;
 	playerInfo.playerhp = 3;
 
-	tekiInfo.enemyhandle = LoadGraph(TEKI_PATH);
-	tekiInfo.enemyx = 320;
-	tekiInfo.enemyy = 240;
-
-	//HPInfo1
+	//HP初期化
 	for (int i = 0; i < HP_MAX_NUM; i++) {
 		playerhpInfo[i].handle = LoadGraph(HP_PATH);
 		playerhpInfo[i].x = 0;
@@ -54,6 +62,11 @@ void InitPlay()
 	playerhpInfo[0].y = 12;
 	playerhpInfo[1].y = 12;
 	playerhpInfo[2].y = 12;
+	//カウント初期化
+	startcountInfo.startcounthandle1 = LoadGraph(START_COUNT1_PATH);
+	startcountInfo.startcounthandle2 = LoadGraph(START_COUNT2_PATH);
+	startcountInfo.startcounthandle3= LoadGraph(START_COUNT3_PATH);
+	startcountInfo.starthandle = LoadGraph(START_PATH);
 
 	cnttime.Init();
 	ball.Init();
@@ -131,18 +144,45 @@ void DrawPlay()
 	//HP描画
 	for (int i = 0; i < HP_MAX_NUM; i++) {
 		if (playerInfo.playerhp >= 1) {
-			DrawGraph(playerhpInfo[2].x, playerhpInfo[2].y, playerhpInfo[2].handle, true);
+			DrawGraph(playerhpInfo[0].x, playerhpInfo[0].y, playerhpInfo[0].handle, true);
 		}
 		if (playerInfo.playerhp >= 2) {
 			DrawGraph(playerhpInfo[1].x, playerhpInfo[1].y, playerhpInfo[1].handle, true);
 		}
 		if (playerInfo.playerhp == 3) {
-			DrawGraph(playerhpInfo[0].x, playerhpInfo[0].y, playerhpInfo[0].handle, true);
+			DrawGraph(playerhpInfo[2].x, playerhpInfo[2].y, playerhpInfo[2].handle, true);
 		}
 	}
-	//DrawGraph(tekiInfo.enemyx, tekiInfo.enemyy, tekiInfo.enemyhandle, true);
+
 	//プレイヤーの描画
-	DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerhandle, true);
+	if (playerInfo.playerhp >= 2) {
+		DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerhandle, true);
+	}
+	if (playerInfo.playerhp == 1) {
+		DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerdiehandle, true);
+	}
+
+	//最初のカウント描画
+	if (startcount >= 30) {
+		if (startcount <= 130) {
+			DrawGraph(320 - 61, 240 - 61, startcountInfo.startcounthandle3, true);
+		}
+	}
+	if (startcount >= 130) {
+		if (startcount <= 230) {
+			DrawGraph(320 - 64, 240 - 64, startcountInfo.startcounthandle2, true);
+		}
+	}
+	if (startcount >= 230) {
+		if (startcount <= 330) {
+			DrawGraph(320 - 56, 240 - 56, startcountInfo.startcounthandle1, true);
+		}
+	}
+	if (startcount >= 330) {
+		if (startcount <= 400) {
+			DrawGraph(320 - 162, 240 - 61, startcountInfo.starthandle, true);
+		}
+	}
 
 	//クリア判定
 	if (cnttime.GetTimerClear()==true) {     //制限時間が０になったら
