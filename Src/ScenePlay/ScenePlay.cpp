@@ -2,6 +2,7 @@
 #include"Scene.h"
 #include"ScenePlay.h"
 #include"../Timer/Timer.h"
+#include"../Ball/Ball.h"
 
 #include "../Collision/Collision.h"
 
@@ -21,6 +22,7 @@ PlayerHPInfo playerhpInfo[HP_MAX_NUM] = { 0 };
 TekiInfo tekiInfo = { 0 };
 // タイムクラス
 CntTimer cnttime;
+Ball ball;
 
 //クリアシーンフラグ
 bool isNextClearScene = false;      //クリア条件を満たしているか
@@ -54,6 +56,7 @@ void InitPlay()
 	playerhpInfo[2].y = 12;
 
 	cnttime.Init();
+	ball.Init();
 }
 
 void StepPlay()
@@ -107,6 +110,7 @@ void StepPlay()
 	}
 
 	cnttime.Step();
+	ball.Step();
 }
 
 void DrawPlay()
@@ -141,23 +145,25 @@ void DrawPlay()
 	DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerhandle, true);
 
 	//クリア判定
-	/*if (cnttimeM_m <= 0 && cnttimeS_m <= 0 &&     //制限時間が０になったら
-		cnttimeMS_m <= 0) {
+	if (cnttime.GetTimerClear()==true) {     //制限時間が０になったら
 		g_CurrentSceneID = SCENE_ID_FIN_PLAY;    //FINに移動
 		isNextClearScene = true;                 //クリア条件を満たす
-	}*/
+	}
 
 	cnttime.Draw();
+	ball.Draw();
 }
 
 void FinPlay()
 {
-	/*if (isNextClearScene) {
+	if (isNextClearScene) {
 		playerInfo.playerhp = 3;
 		g_CurrentSceneID = SCENE_ID_INIT_CLEAR;  //クリアシーンへ
 	}
 	else {
 		playerInfo.playerhp = 3;
 		g_CurrentSceneID = SCENE_ID_INIT_GAMEOVER;  //ゲームオーバーへ
-	}*/
+	}
+	cnttime.Fin();
+	ball.Fin();
 }

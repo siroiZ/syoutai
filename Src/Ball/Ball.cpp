@@ -1,7 +1,7 @@
 #include "Ball.h"		//2309402_oŒõ^“ß“l
 #include "Dxlib.h"
 
-#define TEKI_PATH     "Data/PlayerImage/smallDiePlayer.png"
+#define TEKI_PATH     "Data/PlayImage/smallDiePlayer.png"
 BallInfo Ball;
 
 void Ball::Init() {		// ‰Šú‰»
