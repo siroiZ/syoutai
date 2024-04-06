@@ -22,6 +22,9 @@
 #define START_PATH		        "Data/Count/START.png"	//STARTのパス
 //背景
 #define HAIKEI_PATH		"Data/Haikei/画像1.png"	//背景のパス
+//SE
+#define START_COUNT_SE_PATH		"Data/SE/決定ボタンを押す2.wav"    //カウント(123)
+#define START_SE_PATH		    "Data/SE/決定ボタンを押す1.wav"    //カウント(START)
 
 //構造体
 PlayerInfo playerInfo = { 0 };
@@ -41,6 +44,9 @@ bool startcountflag = false;
 int startcount = 0;            //一時停止時間
 //背景
 int HaikeiHandle = { 0 };        //ハンドル
+//SE関連
+int startcountSEhundle = 0;
+int startSEhundle = 0;
 
 void InitPlay()
 {
@@ -74,6 +80,9 @@ void InitPlay()
 	startcountInfo.startcounthandle2 = LoadGraph(START_COUNT2_PATH);
 	startcountInfo.startcounthandle3= LoadGraph(START_COUNT3_PATH);
 	startcountInfo.starthandle = LoadGraph(START_PATH);
+	//SE初期化
+	startcountSEhundle = LoadSoundMem(START_COUNT_SE_PATH);
+	startSEhundle = LoadSoundMem(START_SE_PATH);
 
 	cnttime.Init();
 	ball.Init();
@@ -82,7 +91,19 @@ void InitPlay()
 void StepPlay()
 {
 	if (startcountflag == false) {
-		startcount++;
+		startcount++;               //カウントを進めていく
+		if (startcount == 30) {
+			PlaySoundMem(startcountSEhundle, DX_PLAYTYPE_BACK, true);    //カウント3 SE
+		}
+		if (startcount == 100) {
+			PlaySoundMem(startcountSEhundle, DX_PLAYTYPE_BACK, true);    //カウント2 SE
+		}
+		if (startcount == 170) {
+			PlaySoundMem(startcountSEhundle, DX_PLAYTYPE_BACK, true);    //カウント1 SE
+		}
+		if (startcount == 240) {
+			PlaySoundMem(startSEhundle, DX_PLAYTYPE_BACK, true);    //START SE
+		}
 		if (startcount >= 310) {
 			startcountflag = true;
 		}
@@ -112,25 +133,25 @@ void StepPlay()
 			playerInfo.y += moveSpeed;
 		}
 		//プレイヤーと壁との当たり判定
-		if (playerInfo.x < SCREEN_SIZE_X / 2 - 300 + 100 - 3) {
+		if (playerInfo.x < SCREEN_SIZE_X / 2 - 300 + 90) {
 			playerInfo.x = playerInfo.x + 1;         //左壁
 			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
 				playerInfo.x = playerInfo.x + 2;     //ダッシュ中の処理
 			}
 		}
-		if (playerInfo.x + 76 > SCREEN_SIZE_X / 2 + 200 + 3) {
+		if (playerInfo.x + 76 > SCREEN_SIZE_X / 2 + 200 + 10) {
 			playerInfo.x = playerInfo.x - 1;         //右壁
 			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
 				playerInfo.x = playerInfo.x - 2;     //ダッシュ中の処理
 			}
 		}
-		if (playerInfo.y + 76 > SCREEN_SIZE_Y / 2 + 200 + 3) {
+		if (playerInfo.y + 76 > SCREEN_SIZE_Y / 2 + 200 + 10) {
 			playerInfo.y = playerInfo.y - 1;         //下壁
 			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
 				playerInfo.y = playerInfo.y - 2;     //ダッシュ中の処理
 			}
 		}
-		if (playerInfo.y < SCREEN_SIZE_Y / 2 - 300 + 100 - 3) {
+		if (playerInfo.y < SCREEN_SIZE_Y / 2 - 300 + 90) {
 			playerInfo.y = playerInfo.y + 1;         //上壁
 			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
 				playerInfo.y = playerInfo.y + 2;     //ダッシュ中の処理
@@ -164,13 +185,21 @@ void DrawPlay()
 	DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 + 200,
 		SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 300, GetColor(0, 100, 225), true);		//下壁*/
 
+	//プレイヤーの描画
+	if (playerInfo.playerhp >= 2) {
+		DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerhandle, true);
+	}
+	if (playerInfo.playerhp == 1) {
+		DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerdiehandle, true);
+	}
+
 	//囲い描画
 	DrawBox(playerhpInfo[2].x - 4, playerhpInfo[2].y - 6,
 		playerhpInfo[0].x + 34, playerhpInfo[0].y + 32 + 6, GetColor(250, 210, 0), true);	//HP(内側)
 	DrawBox(playerhpInfo[2].x - 4, playerhpInfo[2].y - 6,
 		playerhpInfo[0].x + 34, playerhpInfo[0].y + 32 + 6, GetColor(60, 60, 200), false);  //HP(外側)
-	DrawBox(-5,-5,80,20, GetColor(250, 210, 0), true);	//残り時間(内側)
-	DrawBox(-5,-5,80,20, GetColor(60, 60, 200), false); //残り時間(外側)
+	DrawBox(-5, -5, 80, 20, GetColor(250, 210, 0), true);	//残り時間(内側)
+	DrawBox(-5, -5, 80, 20, GetColor(60, 60, 200), false); //残り時間(外側)
 
 	//HP描画
 	for (int i = 0; i < HP_MAX_NUM; i++) {
@@ -183,14 +212,6 @@ void DrawPlay()
 		if (playerInfo.playerhp == 3) {
 			DrawGraph(playerhpInfo[2].x, playerhpInfo[2].y, playerhpInfo[2].handle, true);
 		}
-	}
-
-	//プレイヤーの描画
-	if (playerInfo.playerhp >= 2) {
-		DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerhandle, true);
-	}
-	if (playerInfo.playerhp == 1) {
-		DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerdiehandle, true);
 	}
 
 	//最初のカウント描画
@@ -235,6 +256,10 @@ void FinPlay()
 		playerInfo.playerhp = 3;
 		g_CurrentSceneID = SCENE_ID_INIT_GAMEOVER;  //ゲームオーバーへ
 	}
+	//SE破棄
+	DeleteSoundMem(startcountSEhundle);
+	DeleteSoundMem(startSEhundle);
+
 	cnttime.Fin();
 	ball.Fin();
 }
