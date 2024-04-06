@@ -15,11 +15,13 @@
 //体力ゲージ
 #define HP_PATH		"Data/PlayImage/体力32サイズ(満タン).png"	//体力のパス
 #define HP_MAX_NUM (3)
-//
+//最初のカウンダウン
 #define START_COUNT1_PATH		"Data/Count/1count.png"	//カウント1のパス
 #define START_COUNT2_PATH		"Data/Count/2count.png"	//カウント2のパス
 #define START_COUNT3_PATH		"Data/Count/3count.png"	//カウント3のパス
 #define START_PATH		        "Data/Count/START.png"	//STARTのパス
+//背景
+#define HAIKEI_PATH		"Data/Haikei/画像1.png"	//背景のパス
 
 //構造体
 PlayerInfo playerInfo = { 0 };
@@ -39,19 +41,21 @@ bool startcountflag = false;
 int startcount = 0;            //一時停止時間
 //背景
 int HaikeiHandle = { 0 };        //ハンドル
-int HaikeiX =0;                 //X座標
 
 void InitPlay()
 {
-	g_CurrentSceneID = SCENE_ID_LOOP_PLAY;
-	//プレイヤー初期化
-	playerInfo.playerhandle = LoadGraph(PLAYER_PATH);
-	playerInfo.playerdiehandle = LoadGraph(PLAYER_DIE_PATH);
-	playerInfo.x = 320-33;
-	playerInfo.y = 240-33;
-	playerInfo.playerhp = 3;
+	g_CurrentSceneID = SCENE_ID_LOOP_PLAY;     //SCENE ID LOOP PLAYへ
+	//背景初期化
+	HaikeiHandle= LoadGraph(HAIKEI_PATH);
 
-	//HP初期化
+	//プレイヤー初期化
+	playerInfo.playerhandle = LoadGraph(PLAYER_PATH);           //プレイヤーハンドル
+	playerInfo.playerdiehandle = LoadGraph(PLAYER_DIE_PATH);    //プレイヤー（ピンチ時）ハンドル
+	playerInfo.x = 320-33;       //X座標
+	playerInfo.y = 240-33;       //Y座標
+	playerInfo.playerhp = 3;     //プレイヤーHP（ 3 ）
+
+	//HP表示初期化
 	for (int i = 0; i < HP_MAX_NUM; i++) {
 		playerhpInfo[i].handle = LoadGraph(HP_PATH);
 		playerhpInfo[i].x = 0;
@@ -132,6 +136,11 @@ void StepPlay()
 				playerInfo.y = playerInfo.y + 2;     //ダッシュ中の処理
 			}
 		}
+		//クリア判定
+		if (cnttime.GetTimerClear() == true) {     //制限時間が０になったら
+			g_CurrentSceneID = SCENE_ID_FIN_PLAY;    //FINに移動
+			isNextClearScene = true;                 //クリア条件を満たす
+		}
 
 		cnttime.Step();
 		ball.Step();
@@ -140,18 +149,28 @@ void StepPlay()
 
 void DrawPlay()
 {
+	//背景描画
+	DrawGraph(-10, -10, HaikeiHandle, true);
 
 	//動作Test (仮壁)
 	DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200,
 		SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 200, GetColor(0, 225, 225), false);	//壁
-	DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200,
+	/*DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200,
 		SCREEN_SIZE_X / 2 - 300, SCREEN_SIZE_Y / 2 + 200, GetColor(0, 100, 225), true);		//左壁
 	DrawBox(SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 - 200,
 		SCREEN_SIZE_X / 2 + 300, SCREEN_SIZE_Y / 2 + 200, GetColor(0, 100, 225), true);		//右壁
 	DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200,
 		SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 - 300, GetColor(0, 100, 225), true);		//上壁
 	DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 + 200,
-		SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 300, GetColor(0, 100, 225), true);		//下壁
+		SCREEN_SIZE_X / 2 + 200, SCREEN_SIZE_Y / 2 + 300, GetColor(0, 100, 225), true);		//下壁*/
+
+	//囲い描画
+	DrawBox(playerhpInfo[2].x - 4, playerhpInfo[2].y - 6,
+		playerhpInfo[0].x + 34, playerhpInfo[0].y + 32 + 6, GetColor(250, 210, 0), true);	//HP(内側)
+	DrawBox(playerhpInfo[2].x - 4, playerhpInfo[2].y - 6,
+		playerhpInfo[0].x + 34, playerhpInfo[0].y + 32 + 6, GetColor(60, 60, 200), false);  //HP(外側)
+	DrawBox(-5,-5,80,20, GetColor(250, 210, 0), true);	//残り時間(内側)
+	DrawBox(-5,-5,80,20, GetColor(60, 60, 200), false); //残り時間(外側)
 
 	//HP描画
 	for (int i = 0; i < HP_MAX_NUM; i++) {
@@ -197,12 +216,10 @@ void DrawPlay()
 			}
 		}
 	}
+	//コメント表示
+	DrawFormatString(playerhpInfo[2].x-27, playerhpInfo[2].y-4, GetColor(30, 30, 30), "HP");   //HP
+	DrawFormatString(0, 23, GetColor(0, 100, 0), "残り時間");                                //残り時間
 
-	//クリア判定
-	if (cnttime.GetTimerClear()==true) {     //制限時間が０になったら
-		g_CurrentSceneID = SCENE_ID_FIN_PLAY;    //FINに移動
-		isNextClearScene = true;                 //クリア条件を満たす
-	}
 
 	cnttime.Draw();
 	ball.Draw();
