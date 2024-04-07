@@ -3,9 +3,10 @@
 #include "time.h"
 
 void CntTimer::Init() {		// 初期化
-	cnttimeM_m = 1;		// 分
-	cnttimeS_m = 30;	// 秒
-	cnttimeMS_m = 0;	// ミリ秒
+	cnttimeM_m = 1;			// 分
+	cnttimeS_m = 30;		// 秒
+	cnttimeMS_m = 0;		// ミリ秒
+	cnttimeball_m = 0.0f;	// 時間経過でボールの速度アップ
 	timeclear_m = false;
 }
 
@@ -13,6 +14,7 @@ void CntTimer::Step() {		// 通常
 
 		if (cnttimeM_m >= 0) {
 			cnttimeMS_m--;
+			cnttimeball_m += 0.1f;
 		}
 		if (cnttimeMS_m < 0) {
 			cnttimeMS_m = 60;
@@ -44,4 +46,5 @@ void CntTimer::Fin() {		// 終了
 	cnttimeM_m = 0;
 	cnttimeS_m = 0;
 	cnttimeMS_m = 0;
+	cnttimeball_m = 0.0f;
 }

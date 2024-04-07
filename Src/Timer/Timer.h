@@ -6,6 +6,7 @@ private:
 	int cnttimeM_m;		// 分タイムメンバ変数
 	int cnttimeS_m;		// 秒タイムメンバ変数
 	int cnttimeMS_m;	// ミリ秒タイムメンバ変数
+	float cnttimeball_m;// 時間経過でボールの速度アップ
 	bool timeclear_m;	// 残り時間0になったときtrueにする
 	public:
 
@@ -15,5 +16,6 @@ private:
 		void Fin();		// 終了処理
 
 		bool GetTimerClear() { return timeclear_m; };	// クリア変数取得（残り時間０になったらクリアにしたいため）
+		float GetCountTime() { return cnttimeball_m; };	// 時間経過ボール速度上昇変数取得
 
 };
