@@ -29,7 +29,6 @@
 //構造体
 PlayerInfo playerInfo = { 0 };
 PlayerHPInfo playerhpInfo[HP_MAX_NUM] = { 0 };
-
 StartCountInfo startcountInfo = { 0 };
 
 // タイムクラス
