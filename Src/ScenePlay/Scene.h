@@ -23,5 +23,7 @@
 
 
 extern int g_CurrentSceneID;  //Œ»İ‚ÌƒV[ƒ“ID
+extern int cnttimeM_m;
+extern int cnttimeS_m;
 
 #endif

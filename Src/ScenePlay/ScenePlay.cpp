@@ -12,6 +12,9 @@
 
 #define PLAYER_MOVE_NORMAL_SPEED (1)    //プレイヤーの通常移動速度
 #define PLAYER_MOVE_DASH_SPEED (3)    //プレイヤーの通常移動速度
+//ボール情報
+#define BALL_PATH     "Data/Charactor/Enemy.png"
+#define BALL_MAX_NUM (5)
 //体力ゲージ
 #define HP_PATH		"Data/PlayImage/体力32サイズ(満タン).png"	//体力のパス
 #define HP_MAX_NUM (3)
@@ -37,7 +40,6 @@ StartCountInfo startcountInfo = { 0 };
 CntTimer cnttime;
 //ボールクラス
 Ball ball;
-
 //クリアシーンフラグ
 bool isNextClearScene = false;      //クリア条件を満たしているか
 //ゲームオーバー時ストップ用
@@ -83,6 +85,7 @@ void InitPlay()
 	playerhpInfo[0].y = 12;
 	playerhpInfo[1].y = 12;
 	playerhpInfo[2].y = 12;
+	int hndl_m = LoadGraph(BALL_PATH);
 	//カウント初期化
 	startcountInfo.startcounthandle1 = LoadGraph(START_COUNT1_PATH);
 	startcountInfo.startcounthandle2 = LoadGraph(START_COUNT2_PATH);
@@ -212,6 +215,7 @@ void StepPlay()
 				}
 			}
 		}
+		
 		//無敵時間処理
 		if (playerInfo.count > 0) {
 			--playerInfo.count;
