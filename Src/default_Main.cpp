@@ -6,6 +6,7 @@
 #include"SceneClear/SceneClear.h"
 #include"SceneGameOver/SceneGameOver.h"
 #include "SceneTitle/SceneTitle.h"
+#include "Ball/Ball.h"
 
 //åªç›ÇÃÉVÅ[ÉìID
 int g_CurrentSceneID = SCENE_ID_INIT_TITLE;
@@ -88,6 +89,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
 			StepPlay();
 
 			DrawPlay();
+
 		}
 		break;
 

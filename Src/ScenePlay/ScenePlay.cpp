@@ -38,6 +38,9 @@ Ball ball;
 
 //クリアシーンフラグ
 bool isNextClearScene = false;      //クリア条件を満たしているか
+float boolx = 10.0f;
+float booly = 10.0f;
+
 //最初のカウントダウン用
 bool startcountflag = false;
 int startcount = 0;            //一時停止時間
@@ -156,6 +159,12 @@ void StepPlay()
 				playerInfo.y = playerInfo.y + 2;     //ダッシュ中の処理
 			}
 		}
+		//プレイヤーとボールとの当たり判定
+		if (IsHitCircle(playerInfo.x+38, playerInfo.y+38, 19,
+			ball.GetballposX(), ball.GetballposY(), 19)){
+			playerInfo.playerhp--;
+		}
+
 		//クリア判定
 		if (cnttime.GetTimerClear() == true) {     //制限時間が０になったら
 			g_CurrentSceneID = SCENE_ID_FIN_PLAY;    //FINに移動
@@ -192,6 +201,8 @@ void DrawPlay()
 		DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerdiehandle, true);
 	}
 
+	ball.Draw();
+
 	//囲い描画
 	DrawBox(playerhpInfo[2].x - 4, playerhpInfo[2].y - 6,
 		playerhpInfo[0].x + 34, playerhpInfo[0].y + 32 + 6, GetColor(250, 210, 0), true);	//HP(内側)
@@ -199,6 +210,9 @@ void DrawPlay()
 		playerhpInfo[0].x + 34, playerhpInfo[0].y + 32 + 6, GetColor(60, 60, 200), false);  //HP(外側)
 	DrawBox(-5, -5, 80, 20, GetColor(250, 210, 0), true);	//残り時間(内側)
 	DrawBox(-5, -5, 80, 20, GetColor(60, 60, 200), false); //残り時間(外側)
+
+	DrawCircle(playerInfo.x + 38, playerInfo.y + 38, 19, GetColor(255, 0, 0), false);  //当たり判定表示(プレイヤー)
+	DrawCircle(ball.GetballposX(), ball.GetballposY(),19, GetColor(255, 0, 0), false); //当たり判定表示(ボール)
 
 	//HP描画
 	for (int i = 0; i < HP_MAX_NUM; i++) {
@@ -242,7 +256,7 @@ void DrawPlay()
 
 
 	cnttime.Draw();
-	ball.Draw();
+
 }
 
 void FinPlay()
