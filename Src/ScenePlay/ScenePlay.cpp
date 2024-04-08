@@ -25,6 +25,8 @@
 #define START_PATH		        "Data/Count/START.png"	//STARTのパス
 //背景
 #define HAIKEI_PATH		"Data/Haikei/画像1.png"	//背景のパス
+//BGM
+#define BGM_PATH		"Data/SE/maou_bgm_8bit28.wav"        //BGMのパス
 //SE
 #define START_COUNT_SE_PATH		"Data/SE/決定ボタンを押す2.wav"    //カウント(123)
 #define START_SE_PATH		    "Data/SE/決定ボタンを押す1.wav"    //カウント(START)
@@ -39,6 +41,7 @@ StartCountInfo startcountInfo = { 0 };
 // タイムクラス
 CntTimer cnttime;
 //ボールクラス
+//Ball ball[BALL_MAX_NUM];
 Ball ball;
 //クリアシーンフラグ
 bool isNextClearScene = false;      //クリア条件を満たしているか
@@ -50,6 +53,8 @@ bool startcountflag = false;
 int startcount = 0;            //一時停止時間
 //背景
 int HaikeiHandle = { 0 };        //ハンドル
+//BGM
+int bgmhundle = 0;
 //SE関連
 int startcountSEhundle = 0;
 int startSEhundle = 0;
@@ -94,6 +99,8 @@ void InitPlay()
 	//エフェクト初期化
 	InitEffect();
 	LoadEffect(EFFECT_TYPE_EXPLOSION, 10);    //エフェクトの読み込み
+	//BGM
+	bgmhundle = LoadSoundMem(BGM_PATH);
 	//SE初期化
 	startcountSEhundle = LoadSoundMem(START_COUNT_SE_PATH);
 	startSEhundle = LoadSoundMem(START_SE_PATH);
@@ -244,6 +251,7 @@ void StepPlay()
 		StepEffect();
 		cnttime.Step();
 		ball.Step();
+		//ball[BALL_MAX_NUM].Step();
 	}
 }
 
@@ -271,9 +279,20 @@ void DrawPlay()
 	if (playerInfo.playerhp == 1) {
 		DrawGraph(playerInfo.x, playerInfo.y, playerInfo.playerdiehandle, true);
 	}
-
 	ball.Draw();
 
+	/*if (cnttimeM_m == 1 && cnttimeS_m == 30) {
+		ball[1].Draw();
+	}
+	if (cnttimeM_m == 1 && cnttimeS_m == 0) {
+		ball[2].Draw();
+	}
+	if (cnttimeM_m == 0 && cnttimeS_m == 45) {
+		ball[3].Draw();
+	}
+	if (cnttimeM_m == 1 && cnttimeS_m == 30) {
+		ball[4].Draw();
+	}*/
 	//囲い描画
 	DrawBox(playerhpInfo[2].x - 4, playerhpInfo[2].y - 6,
 		playerhpInfo[0].x + 34, playerhpInfo[0].y + 32 + 6, GetColor(250, 210, 0), true);	//HP(内側)
@@ -355,4 +374,5 @@ void FinPlay()
 
 	cnttime.Fin();
 	ball.Fin();
+	//ball[BALL_MAX_NUM].Fin();
 }
