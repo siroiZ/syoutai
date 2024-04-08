@@ -28,6 +28,9 @@
     <Filter Include="ソース ファイル\Input">
       <UniqueIdentifier>{4623a3a5-da0f-4441-88f6-9f9dde4fe74d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Effect">
+      <UniqueIdentifier>{4fd5b963-e921-44ec-b3bc-a74eb96cf6e5}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Src\default_Main.cpp">
@@ -57,6 +60,9 @@
     <ClCompile Include="Src\Input\Input.cpp">
       <Filter>ソース ファイル\Input</Filter>
     </ClCompile>
+    <ClCompile Include="Src\Effect\Effect.cpp">
+      <Filter>ソース ファイル\Effect</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Src\Collision\Collision.h">
@@ -85,6 +91,9 @@
     </ClInclude>
     <ClInclude Include="Src\Input\Input.h">
       <Filter>ソース ファイル\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Effect\Effect.h">
+      <Filter>ソース ファイル\Effect</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

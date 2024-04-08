@@ -15,7 +15,9 @@ struct PlayerInfo
 	int playerhandle;		          //プレイヤー画像ハンドル
 	int playerdiehandle;              //プレイヤー(ピンチ)画像ハンドル
 	int x, y;                         //プレイヤー座標
-	int playerhp;            //プレイヤーのHP
+	int playerhp;                 //プレイヤーのHP
+	bool isballHit;              //ボールにヒットしたかどうか
+	int count;
 };
 
 //自機HP情報構造体

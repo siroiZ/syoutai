@@ -4,19 +4,30 @@
 
 #define CLEAR_PATH "Data/Title/Clear.png"
 #define CLEAR_HAIKEI_PATH "Data/Haikei/画像1.png"
+//SE
+#define CLEAR_SE_PATH		"Data/SE/歓声と拍手.wav"
 
 int ClearHandle;
 int ClearHikeiHandle;
+int ClearSEcount = 0;
+//SE
+int ClearSEHandle;
 
 void InitClear()
 {
 	ClearHandle = LoadGraph(CLEAR_PATH);
 	ClearHikeiHandle = LoadGraph(CLEAR_HAIKEI_PATH);
 	g_CurrentSceneID = SCENE_ID_LOOP_CLEAR;
+	//SE初期化
+	ClearSEHandle = LoadSoundMem(CLEAR_SE_PATH);
 }
 
 void StepClear()
 {
+	if (ClearSEcount == 0) {
+		PlaySoundMem(ClearSEHandle, DX_PLAYTYPE_LOOP, true);
+		ClearSEcount++;
+	}
 	//Enterキー押されたなら
 	if (CheckHitKey(KEY_INPUT_RETURN) == 1)
 	{
@@ -37,4 +48,6 @@ void FinClear()
 {
 	//タイトルシーンへ移動
 	g_CurrentSceneID = SCENE_ID_INIT_TITLE;
+	DeleteSoundMem(ClearSEHandle);
+	ClearSEcount = 0;
 }

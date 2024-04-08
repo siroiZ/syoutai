@@ -3,7 +3,7 @@
 #include"ScenePlay.h"
 #include"../Timer/Timer.h"
 #include"../Ball/Ball.h"
-
+#include "../Effect/Effect.h"
 #include "../Collision/Collision.h"
 
 //自機情報
@@ -25,6 +25,8 @@
 //SE
 #define START_COUNT_SE_PATH		"Data/SE/決定ボタンを押す2.wav"    //カウント(123)
 #define START_SE_PATH		    "Data/SE/決定ボタンを押す1.wav"    //カウント(START)
+#define EXPLOSION_SE_PATH		 "Data/SE/爆発1.wav"    //爆発
+#define DAMAGE_SE_PATH		     "Data/SE/小パンチ.wav"    //ダメージ
 
 //構造体
 PlayerInfo playerInfo = { 0 };
@@ -38,9 +40,9 @@ Ball ball;
 
 //クリアシーンフラグ
 bool isNextClearScene = false;      //クリア条件を満たしているか
-float boolx = 10.0f;
-float booly = 10.0f;
-
+//ゲームオーバー時ストップ用
+int gameoverstopcount = 0;
+int gameoverstopflag = false;
 //最初のカウントダウン用
 bool startcountflag = false;
 int startcount = 0;            //一時停止時間
@@ -49,6 +51,8 @@ int HaikeiHandle = { 0 };        //ハンドル
 //SE関連
 int startcountSEhundle = 0;
 int startSEhundle = 0;
+int ExplosionSEhundle = 0;
+int DamageSEhundle = 0;
 
 void InitPlay()
 {
@@ -62,6 +66,8 @@ void InitPlay()
 	playerInfo.x = 320-33;       //X座標
 	playerInfo.y = 240-33;       //Y座標
 	playerInfo.playerhp = 3;     //プレイヤーHP（ 3 ）
+	playerInfo.isballHit=false;   //ボールにヒットしたかどうか
+	playerInfo.count = 0;        //無敵時間のカウンタ
 
 	//HP表示初期化
 	for (int i = 0; i < HP_MAX_NUM; i++) {
@@ -82,9 +88,14 @@ void InitPlay()
 	startcountInfo.startcounthandle2 = LoadGraph(START_COUNT2_PATH);
 	startcountInfo.startcounthandle3= LoadGraph(START_COUNT3_PATH);
 	startcountInfo.starthandle = LoadGraph(START_PATH);
+	//エフェクト初期化
+	InitEffect();
+	LoadEffect(EFFECT_TYPE_EXPLOSION, 10);    //エフェクトの読み込み
 	//SE初期化
 	startcountSEhundle = LoadSoundMem(START_COUNT_SE_PATH);
 	startSEhundle = LoadSoundMem(START_SE_PATH);
+	ExplosionSEhundle = LoadSoundMem(EXPLOSION_SE_PATH);
+	DamageSEhundle = LoadSoundMem(DAMAGE_SE_PATH);
 
 	cnttime.Init();
 	ball.Init();
@@ -160,9 +171,64 @@ void StepPlay()
 			}
 		}
 		//プレイヤーとボールとの当たり判定
-		if (IsHitCircle(playerInfo.x+38, playerInfo.y+38, 19,
-			ball.GetballposX(), ball.GetballposY(), 19)){
-			playerInfo.playerhp--;
+		if (playerInfo.playerhp >= 2) {        //HPが2以上
+			if (IsHitCircle(playerInfo.x + 38, playerInfo.y + 38, 19,
+				ball.GetballposX(), ball.GetballposY(), 19)) {
+				//プレイヤーと敵が当たっている場合
+				playerInfo.isballHit = true;
+				if (playerInfo.isballHit && playerInfo.count == 0) {
+					playerInfo.playerhp--;  //HPを減らす
+					PlaySoundMem(DamageSEhundle, DX_PLAYTYPE_BACK, true);  //サウンド
+					playerInfo.count = 150;  //無敵時間セット
+				}
+
+				//一定の数に来たとき
+				if (playerInfo.playerhp <= 0) {
+					gameoverstopflag = true;
+					if (gameoverstopcount == 0) {
+						PlaySoundMem(ExplosionSEhundle, DX_PLAYTYPE_BACK, true);  //サウンド(爆発)
+						PlayEffect(EFFECT_TYPE_EXPLOSION, playerInfo.x + 38, playerInfo.y + 38);
+					}
+				}
+			}
+		}
+		if (playerInfo.playerhp <= 1) {        //HPが1以下
+			if (IsHitCircle(playerInfo.x + 46, playerInfo.y + 46, 19,
+				ball.GetballposX(), ball.GetballposY(), 19)) {
+				//プレイヤーと敵が当たっている場合
+				playerInfo.isballHit = true;
+				if (playerInfo.isballHit && playerInfo.count == 0) {
+					playerInfo.playerhp--;  //HPを減らす
+					playerInfo.count = 150;  //無敵時間セット
+				}
+
+				//一定の数に来たとき
+				if (playerInfo.playerhp <= 0) {
+					gameoverstopflag = true;
+					if (gameoverstopcount == 0) {
+						PlaySoundMem(ExplosionSEhundle, DX_PLAYTYPE_BACK, true);  //サウンド(爆発)
+						PlayEffect(EFFECT_TYPE_EXPLOSION, playerInfo.x + 38, playerInfo.y + 38);
+					}
+				}
+			}
+		}
+		//無敵時間処理
+		if (playerInfo.count > 0) {
+			--playerInfo.count;
+			if (playerInfo.count <= 0) {
+				//無敵時間終わり
+				playerInfo.count = 0;
+				playerInfo.isballHit = false;
+			}
+		}
+		//ストップモーション
+		if (gameoverstopflag == true) {
+			gameoverstopcount++;
+			if (gameoverstopcount == 300) {
+				playerInfo.playerhp = 0;
+				g_CurrentSceneID = SCENE_ID_FIN_PLAY;   //FINへ
+				isNextClearScene = false;
+			}
 		}
 
 		//クリア判定
@@ -170,7 +236,8 @@ void StepPlay()
 			g_CurrentSceneID = SCENE_ID_FIN_PLAY;    //FINに移動
 			isNextClearScene = true;                 //クリア条件を満たす
 		}
-
+		//エフェクト通常処理
+		StepEffect();
 		cnttime.Step();
 		ball.Step();
 	}
@@ -210,9 +277,6 @@ void DrawPlay()
 		playerhpInfo[0].x + 34, playerhpInfo[0].y + 32 + 6, GetColor(60, 60, 200), false);  //HP(外側)
 	DrawBox(-5, -5, 80, 20, GetColor(250, 210, 0), true);	//残り時間(内側)
 	DrawBox(-5, -5, 80, 20, GetColor(60, 60, 200), false); //残り時間(外側)
-
-	DrawCircle(playerInfo.x + 38, playerInfo.y + 38, 19, GetColor(255, 0, 0), false);  //当たり判定表示(プレイヤー)
-	DrawCircle(ball.GetballposX(), ball.GetballposY(),19, GetColor(255, 0, 0), false); //当たり判定表示(ボール)
 
 	//HP描画
 	for (int i = 0; i < HP_MAX_NUM; i++) {
@@ -254,7 +318,8 @@ void DrawPlay()
 	DrawFormatString(playerhpInfo[2].x-27, playerhpInfo[2].y-4, GetColor(30, 30, 30), "HP");   //HP
 	DrawFormatString(0, 23, GetColor(0, 100, 0), "残り時間");                                //残り時間
 
-
+	//エフェクト描画処理
+	DrawEffect();
 	cnttime.Draw();
 
 }
@@ -263,15 +328,26 @@ void FinPlay()
 {
 	if (isNextClearScene) {
 		playerInfo.playerhp = 3;
+		gameoverstopcount = 0;
+		startcountflag = false;
+		startcount = 0;
 		g_CurrentSceneID = SCENE_ID_INIT_CLEAR;  //クリアシーンへ
 	}
 	else {
 		playerInfo.playerhp = 3;
+		gameoverstopflag = false;
+		gameoverstopcount = 0;
+		startcountflag = false;
+		startcount = 0;
 		g_CurrentSceneID = SCENE_ID_INIT_GAMEOVER;  //ゲームオーバーへ
 	}
+	//エフェクト後処理
+	FinEffect();
 	//SE破棄
 	DeleteSoundMem(startcountSEhundle);
 	DeleteSoundMem(startSEhundle);
+	DeleteSoundMem(ExplosionSEhundle);
+	DeleteSoundMem(DamageSEhundle);
 
 	cnttime.Fin();
 	ball.Fin();

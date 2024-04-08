@@ -22,6 +22,7 @@
     <ClCompile Include="Src\Ball\Ball.cpp" />
     <ClCompile Include="Src\Collision\Collision.cpp" />
     <ClCompile Include="Src\default_Main.cpp" />
+    <ClCompile Include="Src\Effect\Effect.cpp" />
     <ClCompile Include="Src\Input\Input.cpp" />
     <ClCompile Include="Src\SceneClear\SceneClear.cpp" />
     <ClCompile Include="Src\SceneGameOver\SceneGameOver.cpp" />
@@ -32,6 +33,7 @@
   <ItemGroup>
     <ClInclude Include="Src\Ball\Ball.h" />
     <ClInclude Include="Src\Collision\Collision.h" />
+    <ClInclude Include="Src\Effect\Effect.h" />
     <ClInclude Include="Src\Input\Input.h" />
     <ClInclude Include="Src\SceneClear\SceneClear.h" />
     <ClInclude Include="Src\SceneGameOver\SceneGameOver.h" />
