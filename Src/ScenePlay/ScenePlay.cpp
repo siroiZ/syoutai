@@ -249,7 +249,9 @@ void StepPlay()
 		}
 		//エフェクト通常処理
 		StepEffect();
-		cnttime.Step();
+		if (gameoverstopflag == false) {
+			cnttime.Step();
+		}
 		ball.Step();
 		//ball[BALL_MAX_NUM].Step();
 	}
