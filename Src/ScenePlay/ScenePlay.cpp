@@ -11,7 +11,7 @@
 #define PLAYER_DIE_PATH		"Data/PlayImage/smallDiePlayer.png"	    //自機(ピンチ)のパス
 
 #define PLAYER_MOVE_NORMAL_SPEED (1)    //プレイヤーの通常移動速度
-#define PLAYER_MOVE_DASH_SPEED (3)    //プレイヤーの通常移動速度
+#define PLAYER_MOVE_DASH_SPEED (5)    //プレイヤーの通常移動速度
 //ボール情報
 #define BALL_PATH     "Data/Charactor/Enemy.png"
 #define BALL_MAX_NUM (5)
@@ -159,25 +159,25 @@ void StepPlay()
 		if (playerInfo.x < SCREEN_SIZE_X / 2 - 300 + 90) {
 			playerInfo.x = playerInfo.x + 1;         //左壁
 			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
-				playerInfo.x = playerInfo.x + 2;     //ダッシュ中の処理
+				playerInfo.x = playerInfo.x + 4;     //ダッシュ中の処理
 			}
 		}
 		if (playerInfo.x + 76 > SCREEN_SIZE_X / 2 + 200 + 10) {
 			playerInfo.x = playerInfo.x - 1;         //右壁
 			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
-				playerInfo.x = playerInfo.x - 2;     //ダッシュ中の処理
+				playerInfo.x = playerInfo.x - 4;     //ダッシュ中の処理
 			}
 		}
 		if (playerInfo.y + 76 > SCREEN_SIZE_Y / 2 + 200 + 10) {
 			playerInfo.y = playerInfo.y - 1;         //下壁
 			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
-				playerInfo.y = playerInfo.y - 2;     //ダッシュ中の処理
+				playerInfo.y = playerInfo.y - 4;     //ダッシュ中の処理
 			}
 		}
 		if (playerInfo.y < SCREEN_SIZE_Y / 2 - 300 + 90) {
 			playerInfo.y = playerInfo.y + 1;         //上壁
 			if (CheckHitKey(KEY_INPUT_RSHIFT)) {
-				playerInfo.y = playerInfo.y + 2;     //ダッシュ中の処理
+				playerInfo.y = playerInfo.y + 4;     //ダッシュ中の処理
 			}
 		}
 		//プレイヤーとボールとの当たり判定
