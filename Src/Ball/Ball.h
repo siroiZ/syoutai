@@ -15,6 +15,9 @@ public:
 	float GetballposX() { return posX_m; };	// （ボールの座標をここから取得）
 	float GetballposY() { return posY_m; };	
 
+	void SetballspeedX(float x);	// ボールスピード設定
+	void SetballspeedY(float y);
+
 };
 
 //ボール情報構造体

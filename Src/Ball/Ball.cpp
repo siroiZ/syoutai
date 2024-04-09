@@ -57,3 +57,11 @@ void Ball::Fin() {		// èIóπ
 	posX_m = 275.0f;
 	posY_m = 50.0f;
 }
+
+
+void Ball::SetballspeedX(float x) {	// ë¨ìxê›íË
+	speedX_m = x;
+}
+void Ball::SetballspeedY(float y) {
+	speedY_m = y;
+}
