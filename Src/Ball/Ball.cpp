@@ -8,32 +8,40 @@
 
 // BallInfo Ball;
 
-CntTimer cntball;
 
 void Ball::Init() {		// ‰Šú‰»
 	posX_m = 325.0f;
 	posY_m = 75.0f;
 	speedX_m = 0.5f;
 	speedY_m = 0.5f;
+	flgx_m = 1;
+	flgy_m = 1;
 	hndl_m = LoadGraph(TEKI_PATH);
 }
 
 void Ball::Step() {		// ’Êí
-	posX_m += speedX_m + cntball.GetCountTime();
-	posY_m += speedY_m + cntball.GetCountTime();
+	posX_m += speedX_m;
+	posY_m += speedY_m;
 
 	if (posX_m > 500) {
 		speedX_m = speedX_m * -1;
+		flgx_m *= -1;
 	}
 	if (posX_m < 140) {
 		speedX_m = speedX_m * -1;
+		flgx_m *= -1;
 	}
 	if (posY_m > 420) {
 		speedY_m = speedY_m * -1;
+		flgy_m *= -1;
 	}
 	if (posY_m < 60) {
 		speedY_m = speedY_m * -1;
+		flgy_m *= -1;
 	}
+
+	UpballspeedX(0.005f * flgx_m);
+	UpballspeedY(0.0025f * flgy_m);
 
 
 	//DrawBox(SCREEN_SIZE_X / 2 - 200, SCREEN_SIZE_Y / 2 - 200,

@@ -16,6 +16,6 @@ private:
 		void Fin();		// 終了処理
 
 		bool GetTimerClear() { return timeclear_m; };	// クリア変数取得（残り時間０になったらクリアにしたいため）
-		float GetCountTime() { return cnttimeball_m; };	// 時間経過ボール速度上昇変数取得
+		// float GetCountTime() { return cnttimeball_m; };	// 時間経過ボール速度上昇変数取得
 
 };

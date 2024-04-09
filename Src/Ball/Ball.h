@@ -4,8 +4,10 @@
 class Ball {
 private:
 	float posX_m, posY_m;		// ボールの座標
-	float speedX_m, speedY_m;	// 
+	float speedX_m, speedY_m;	// ボール速度
 	int hndl_m;					// 画像ハンドル
+	int flgx_m;					// x壁に当たった
+	int flgy_m;					// y壁
 public:
 	void Init();				// 初期化
 	void Step();				// 通常
