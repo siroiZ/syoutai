@@ -59,9 +59,9 @@ void Ball::Fin() {		// 終了
 }
 
 
-void Ball::SetballspeedX(float x) {	// 速度設定
-	speedX_m = x;
+void Ball::UpballspeedX(float x) {	// 速度アップ
+	speedX_m += x;
 }
-void Ball::SetballspeedY(float y) {
-	speedY_m = y;
+void Ball::UpballspeedY(float y) {
+	speedY_m += y;
 }
